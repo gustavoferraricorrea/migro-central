@@ -2998,7 +2998,11 @@ async function iaEnv() {
   try {
     const res = await fetch(EDGE_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SUPA_KEY },
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPA_KEY,
+        'Authorization': `Bearer ${SUPA_KEY}`,
+      },
       body: JSON.stringify({
         messages: [{ role: 'user', content: txt }],
         contexto_cliente,
@@ -3052,7 +3056,7 @@ async function iaEnv() {
 
   } catch(err) {
     document.getElementById(`${tid}-text`).innerHTML =
-      '<span style="color:var(--red);font-size:15px">Erro ao conectar com o assistente. Tente novamente.</span>';
+      `<span style="color:var(--red);font-size:11px">Erro de conexão: ${err.message}</span>`;
     console.error('IA error:', err);
   }
 
